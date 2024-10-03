@@ -1,0 +1,10 @@
+-- CreateTable
+CREATE TABLE `Truck` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `number_plate` VARCHAR(50) NOT NULL,
+    `description` VARCHAR(100) NOT NULL,
+    `status` ENUM('ACTIVE', 'INACTIVE', 'OUT', 'DAMAGED') NOT NULL DEFAULT 'ACTIVE',
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

@@ -8,26 +8,23 @@ import Pagination from "@/components/Pagination";
 interface SearchParams {
   page: string;
 }
-const Truck = async ({ searchParams }: { searchParams: SearchParams }) => {
+const Users = async ({ searchParams }: { searchParams: SearchParams }) => {
   const pageSize = 20;
-  const truckCount = await prisma.truck.count();
+  const userCount = await prisma.user.count();
   const page = parseInt(searchParams.page) || 1;
-  const trucks = await prisma.truck.findMany({
+  const users = await prisma.user.findMany({
     take: pageSize,
     skip: (page - 1) * pageSize,
   });
 
   return (
     <div>
-      <Link
-        href="/truck/new"
-        className={buttonVariants({ variant: "default" })}
-      >
-        New Truck1
+      <Link href="/user/new" className={buttonVariants({ variant: "default" })}>
+        New User
       </Link>
-      <DataTable trucks={trucks}></DataTable>
+      <DataTable users={users}></DataTable>
       <Pagination
-        itemCount={truckCount}
+        itemCount={userCount}
         pageSize={pageSize}
         currentPage={page}
       ></Pagination>
@@ -35,4 +32,4 @@ const Truck = async ({ searchParams }: { searchParams: SearchParams }) => {
   );
 };
 
-export default Truck;
+export default Users;

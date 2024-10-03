@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Truck {
+  id           Int      @id @default(autoincrement())
+  number_plate String   @db.VarChar(50)
+  description  String   @db.VarChar(100)
+  status       Status   @default(ACTIVE)
+  createdAt    DateTime @default(now())
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+  OUT
+  DAMAGED
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  username String @unique
+  password String
+  role     Role   @default(USER)
+  File     File[]
+}
+
+enum Role {
+  ADMIN
+  USER
+  CLIENT
+}
+
+model File {
+  id           Int      @id @default(autoincrement())
+  name         String
+  extension    String
+  size         String
+  path         String
+  file         Bytes
+  uploadedAt   DateTime @default(now())
+  user         User?    @relation(fields: [uploadedById], references: [id])
+  uploadedById Int?
+
+  @@index([uploadedById])
+}

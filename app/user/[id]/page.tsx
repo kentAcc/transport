@@ -1,17 +1,18 @@
 import prisma from "@/prisma/db";
 import React from "react";
-import TruckDeail from "./TruckDeail";
+
+import UserDeail from "./UserDeail";
 interface Props {
   params: { id: string };
 }
 const ViewTruck = async ({ params }: Props) => {
-  const truck = await prisma.truck.findUnique({
+  const user = await prisma.user.findUnique({
     where: { id: parseInt(params.id) },
   });
 
-  if (!truck) return <p className="text-destructive">not Found</p>;
+  if (!user) return <p className="text-destructive">not Found</p>;
 
-  return <TruckDeail truck={truck}></TruckDeail>;
+  return <UserDeail user={user}></UserDeail>;
 };
 
 export default ViewTruck;
